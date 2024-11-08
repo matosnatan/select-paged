@@ -3,23 +3,19 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>API Select with Tailwind CSS</title>
+    <title>API Select</title>
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body class="bg-gray-100 min-h-screen flex items-center justify-center">
-    <div class="bg-white p-8 rounded-lg shadow-md w-full max-w-md">
-        <h1 class="text-2xl font-bold mb-6 text-center text-gray-800">Select a User</h1>
-        <div class="relative">
-            <select id="userSelect" class="block appearance-none w-full bg-white border border-gray-300 hover:border-gray-400 px-4 py-2 pr-8 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent">
-                <option value="">Loading users...</option>
-            </select>
-            <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
-                <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
-                    <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"/>
-                </svg>
-            </div>
+<body class="bg-gray-100">
+    <div class="relative">
+        <select id="userSelect" class="block appearance-none w-full bg-white border border-gray-300 hover:border-gray-400 px-4 py-2 pr-8 rounded focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+            <option value="">Loading users...</option>
+        </select>
+        <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
+            <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+                <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"/>
+            </svg>
         </div>
-        <p id="selectedUser" class="mt-4 text-center text-gray-600"></p>
     </div>
 
     <script>
@@ -34,16 +30,6 @@
                     option.value = user.id;
                     option.textContent = user.name;
                     select.appendChild(option);
-                });
-
-                select.addEventListener('change', (event) => {
-                    const selectedUser = users.find(user => user.id === parseInt(event.target.value));
-                    const userInfo = document.getElementById('selectedUser');
-                    if (selectedUser) {
-                        userInfo.textContent = `Selected: ${selectedUser.name} (${selectedUser.email})`;
-                    } else {
-                        userInfo.textContent = '';
-                    }
                 });
             } catch (error) {
                 console.error('Error fetching users:', error);
