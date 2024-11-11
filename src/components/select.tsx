@@ -61,6 +61,14 @@ function Select({ url }: SelectProps) {
     setFilteredTodos(filtered)
   }
 
+  const handleSelectTodo = (item: Todo) => {
+    window.parent.postMessage(
+      { name: 'Select option', data: JSON.stringify(selectedTodo) },
+      '*'
+    )
+    setSelectedTodo(item)
+  }
+
   useEffect(() => {
     fetchData()
   }, [start])
@@ -79,11 +87,6 @@ function Select({ url }: SelectProps) {
       }
     }
   }, [todosRef])
-
-  window.parent.postMessage(
-    { name: 'Select option', data: JSON.stringify(selectedTodo) },
-    '*'
-  )
 
   return (
     <>
@@ -104,7 +107,7 @@ function Select({ url }: SelectProps) {
               selectedTodo?.id === item.id ? 'bg-blue-600' : 'bg-blue-500'
             } text-white rounded-lg hover:cursor-pointer hover:bg-blue-600`}
             key={item.id}
-            onClick={() => setSelectedTodo(item)}
+            onClick={() => handleSelectTodo(item)}
           >
             {item.title}
           </div>
