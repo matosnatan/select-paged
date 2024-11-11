@@ -63,7 +63,7 @@ function Select({ url }: SelectProps) {
 
   const handleSelectTodo = (item: Todo) => {
     window.parent.postMessage(
-      { name: 'Select option', data: JSON.stringify(selectedTodo) },
+      { name: 'Select option', data: JSON.stringify(item) },
       '*'
     )
     setSelectedTodo(item)
@@ -98,7 +98,7 @@ function Select({ url }: SelectProps) {
       />
 
       <div
-        className="flex gap-2 flex-wrap items-start justify-end mt-4 h-[300px] overflow-y-auto"
+        className="flex gap-2 flex-wrap items-start justify-end mt-4 max-h-[300px] overflow-y-auto"
         ref={todosRef}
       >
         {filteredTodos.map((item) => (
