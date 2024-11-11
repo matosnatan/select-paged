@@ -1,10 +1,9 @@
 import { useEffect, useState, useRef } from 'react'
+import Cookies from 'js-cookie'
 
-export type Todo = {
-  userId: number
+export type Item = {
   id: number
-  title: string
-  completed: boolean
+  name: string
 }
 
 type SelectProps = {
@@ -12,9 +11,9 @@ type SelectProps = {
 }
 
 function Select({ url }: SelectProps) {
-  const [todos, setTodos] = useState<Todo[]>([])
-  const [filteredTodos, setFilteredTodos] = useState<Todo[]>([])
-  const [selectedTodo, setSelectedTodo] = useState<Todo | null>(null)
+  const [todos, setItems] = useState<Item[]>([])
+  const [filteredItems, setFilteredItems] = useState<Item[]>([])
+  const [selectedItem, setSelectedItem] = useState<Item | null>(null)
   const [start, setStart] = useState(0)
   const [loading, setLoading] = useState(false)
   const [finished, setFinished] = useState(false)
@@ -37,11 +36,22 @@ function Select({ url }: SelectProps) {
 
   const fetchData = async () => {
     try {
-      const response = await fetch(`${url}?_start=${start}&_limit=10`)
+      const cookie = Cookies.get('AUTHENTICATED-USER')
+      const user = cookie && JSON.parse(cookie)
+      const response = await fetch(
+        `${url}?offset=${start}&limit=10&sort=name`,
+        {
+          headers: {
+            Authorization: `Bearer ${user.accessToken}`,
+            'Content-Type': 'application/json',
+            'Organization-Unit-Id': user.organizationUnitId
+          }
+        }
+      )
       const data = await response.json()
-      const updatedTodos = [...todos, ...data]
-      setTodos(updatedTodos)
-      setFilteredTodos(updatedTodos)
+      const updatedItems = [...todos, ...data]
+      setItems(updatedItems)
+      setFilteredItems(updatedItems)
       setLoading(false)
 
       if (!data.length) {
@@ -56,17 +66,17 @@ function Select({ url }: SelectProps) {
     const term = event.target.value
     setSearchTerm(term)
     const filtered = todos.filter((todo) =>
-      todo.title.toLowerCase().includes(term.toLowerCase())
+      todo.name.toLowerCase().includes(term.toLowerCase())
     )
-    setFilteredTodos(filtered)
+    setFilteredItems(filtered)
   }
 
-  const handleSelectTodo = (item: Todo) => {
+  const handleSelectItem = (item: Item) => {
+    setSelectedItem(item)
     window.parent.postMessage(
-      { name: 'Select option', data: JSON.stringify(item) },
+      { name: 'Select option', data: JSON.stringify({ ...item }) },
       '*'
     )
-    setSelectedTodo(item)
   }
 
   useEffect(() => {
@@ -101,15 +111,15 @@ function Select({ url }: SelectProps) {
         className="flex gap-2 flex-wrap items-start justify-end mt-4 max-h-[300px] overflow-y-auto"
         ref={todosRef}
       >
-        {filteredTodos.map((item) => (
+        {filteredItems.map((item) => (
           <div
             className={`p-2 ${
-              selectedTodo?.id === item.id ? 'bg-blue-600' : 'bg-blue-500'
+              selectedItem?.id === item.id ? 'bg-blue-600' : 'bg-blue-500'
             } text-white rounded-lg hover:cursor-pointer hover:bg-blue-600`}
             key={item.id}
-            onClick={() => handleSelectTodo(item)}
+            onClick={() => !selectedItem && handleSelectItem(item)}
           >
-            {item.title}
+            {item.name}
           </div>
         ))}
       </div>

@@ -8,6 +8,15 @@ importers:
 
   .:
     dependencies:
+      '@typebot.io/js':
+        specifier: ^0.3.28
+        version: 0.3.28
+      '@typebot.io/react':
+        specifier: ^0.3.28
+        version: 0.3.28(@typebot.io/js@0.3.28)(react@18.3.1)
+      js-cookie:
+        specifier: ^3.0.5
+        version: 3.0.5
       react:
         specifier: ^18.3.1
         version: 18.3.1
@@ -21,6 +30,9 @@ importers:
       '@eslint/js':
         specifier: ^9.13.0
         version: 9.14.0
+      '@types/js-cookie':
+        specifier: ^3.0.6
+        version: 3.0.6
       '@types/react':
         specifier: ^18.3.12
         version: 18.3.12
@@ -473,6 +485,15 @@ packages:
     cpu: [x64]
     os: [win32]
 
+  '@typebot.io/js@0.3.28':
+    resolution: {integrity: sha512-WMnzZmuIFmjedgXLteQnuJe/uDx67r41vxdgbkR2lztkFvecXuyBFC9a6/x4hMyXtbmuUAmxdqwo3E6pc+gXHg==}
+
+  '@typebot.io/react@0.3.28':
+    resolution: {integrity: sha512-OKexUqL7iZ6DTbIdcWAd7980OWGWKNd3JDL3LXp3RCr0fNGB49Hu4DEYrBfjUP/9eZmox29na0KnljjNXsnVaA==}
+    peerDependencies:
+      '@typebot.io/js': 0.3.22
+      react: ^16.0.0 || ^17.0.0 || ^18.0.0
+
   '@types/babel__core@7.20.5':
     resolution: {integrity: sha512-qoQprZvz5wQFJwMDqeseRXWv3rqMvhgpbXFfVyWhbx9X47POIA6i/+dXefEmZKoAgOaTdaIgNSMqMIU61yRyzA==}
 
@@ -487,6 +508,9 @@ packages:
 
   '@types/estree@1.0.6':
     resolution: {integrity: sha512-AYnb1nQyY49te+VRAVgmzfcgjYS91mY5P0TKUDCLEM+gNnA+3T6rWITXRLYCpahpqSQbN5cE+gHpnPyXjHWxcw==}
+
+  '@types/js-cookie@3.0.6':
+    resolution: {integrity: sha512-wkw9yd1kEXOPnvEeEV1Go1MmxtBJL0RR79aOTAApecWFVu7w0NNXNqhcWgvw2YgZDYadliXkl14pa3WXw5jlCQ==}
 
   '@types/json-schema@7.0.15':
     resolution: {integrity: sha512-5+fP8P8MFNC+AyZCDxrB2pkZFPGzqQWUzpSeuuVLvm8VMcorNYavBqoFcxK8bQz4Qsbn4oUEEem4wDLfcysGHA==}
@@ -969,6 +993,10 @@ packages:
   jiti@1.21.6:
     resolution: {integrity: sha512-2yTgeWTWzMWkHu6Jp9NKgePDaYHbntiwvYuuJLbbN9vl7DC9DvXKOB2BC3ZZ92D3cvV/aflH0osDfwpHepQ53w==}
     hasBin: true
+
+  js-cookie@3.0.5:
+    resolution: {integrity: sha512-cEiJEAEoIbWfCZYKWhVwFuvPX1gETRYPw6LlaTKoxD3s2AkXzkCjnp6h0V77ozyqj0jakteJ4YqDJT830+lVGw==}
+    engines: {node: '>=14'}
 
   js-tokens@4.0.0:
     resolution: {integrity: sha512-RdJUflcE3cUzKiMqQgsCu06FPu9UdIJO0beYbPhHN4k6apgJtifcoCtT9bcxOpYBtpD2kCM6Sbzg4CausW/PKQ==}
@@ -1794,6 +1822,13 @@ snapshots:
   '@rollup/rollup-win32-x64-msvc@4.24.4':
     optional: true
 
+  '@typebot.io/js@0.3.28': {}
+
+  '@typebot.io/react@0.3.28(@typebot.io/js@0.3.28)(react@18.3.1)':
+    dependencies:
+      '@typebot.io/js': 0.3.28
+      react: 18.3.1
+
   '@types/babel__core@7.20.5':
     dependencies:
       '@babel/parser': 7.26.2
@@ -1816,6 +1851,8 @@ snapshots:
       '@babel/types': 7.26.0
 
   '@types/estree@1.0.6': {}
+
+  '@types/js-cookie@3.0.6': {}
 
   '@types/json-schema@7.0.15': {}
 
@@ -2341,6 +2378,8 @@ snapshots:
       '@pkgjs/parseargs': 0.11.0
 
   jiti@1.21.6: {}
+
+  js-cookie@3.0.5: {}
 
   js-tokens@4.0.0: {}
 
